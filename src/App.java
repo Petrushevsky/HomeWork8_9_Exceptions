@@ -1,14 +1,14 @@
 public class App {
     public static void main(String[] args) {
         try {
-            throw new Exception();
-        } catch (RuntimeException e) {
-            System.err.println("catch RuntimeException");
-        } catch (Exception e) {
-            System.err.println("catch Exception");
-        } catch (Throwable e) {
-            System.err.println("catch Throwable");
+            System.err.print(" 0");
+            if (true) {throw new Error();}
+            System.err.print(" 1");
+        } catch(Error e) {
+            System.err.print(" 2");
+        } finally {
+            System.err.print(" 3");
         }
-        System.err.println("next statement");
+        System.err.print(" 4");
     }
 }
