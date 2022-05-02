@@ -2,19 +2,23 @@ public class App {
     public static void main(String[] args) {
         System.err.println("#1.in");
         f(); // создаем фрейм, помещаем в стек, передаем в него управление
-        System.err.println("#1.out"); // ПРОПУСТИЛИ!
+        System.err.println("#1.out"); // вернулись и работаем
     }
 
     public static void f() {
         System.err.println(".   #2.in");
         g(); // создаем фрейм, помещаем в стек, передаем в него управление
-        System.err.println(".   #2.out"); // ПРОПУСТИЛИ!
+        System.err.println(".   #2.out"); // вернулись и работаем
     }
 
     public static void g() {
         System.err.println(".   .   #3.in");
-        h(); // создаем фрейм, помещаем в стек, передаем в него управление
-        System.err.println(".   .   #3.out"); // ПРОПУСТИЛИ!
+        try {
+            h(); // создаем фрейм, помещаем в стек, передаем в него управление
+        } catch (Error e) { // "перехватили" "летящее" исключение
+            System.err.println(".   .   #3.CATCH");  // и работаем
+        }
+        System.err.println(".   .   #3.out");  // работаем дальше
     }
 
     public static void h() {
