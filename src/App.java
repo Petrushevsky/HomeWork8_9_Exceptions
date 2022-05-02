@@ -1,32 +1,22 @@
 public class App {
     public static void main(String[] args) {
-        System.err.println("#1.in");
-        f(); // создаем фрейм, помещаем в стек, передаем в него управление
-        System.err.println("#1.out"); // вернулись и работаем
-    }
-
-    public static void f() {
-        System.err.println(".   #2.in");
-        g(); // создаем фрейм, помещаем в стек, передаем в него управление
-        System.err.println(".   #2.out"); // вернулись и работаем
-    }
-
-    public static void g() {
-        System.err.println(".   .   #3.in");
         try {
-            h(); // создаем фрейм, помещаем в стек, передаем в него управление
-        } catch (Error e) { // "перехватили" "летящее" исключение
-            System.err.println(".   .   #3.CATCH");  // и работаем
+            System.err.print(" 0");
+            if (true) {throw new RuntimeException();}
+            System.err.print(" 1");
+        } catch (RuntimeException e) { // перехватили RuntimeException
+            System.err.print(" 2.1");
+            try {
+                System.err.print(" 2.2");
+                if (true) {throw new Error();} // и бросили новый Error
+                System.err.print(" 2.3");
+            } catch (Throwable t) {            // перехватили Error
+                System.err.print(" 2.4");
+            }
+            System.err.print(" 2.5");
+        } catch (Error e) { // хотя есть cath по Error "ниже", но мы в него не попадаем
+            System.err.print(" 3");
         }
-        System.err.println(".   .   #3.out");  // работаем дальше
-    }
-
-    public static void h() {
-        System.err.println(".   .   .   #4.in");
-        if (true) {
-            System.err.println(".   .   .   #4.THROW");
-            throw new Error(); // выходим со всей пачки фреймов ("раскрутка стека") по 'throw'
-        }
-        System.err.println(".   .   .   #4.out"); // ПРОПУСТИЛИ!
+        System.err.println(" 4");
     }
 }
